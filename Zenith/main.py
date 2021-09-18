@@ -16,7 +16,7 @@ bot = commands.Bot(command_prefix='>>')
 
 @bot.event
 async def on_ready():
-        print('We have logged in as Zenith')
+        print('Logged in as Zenith')
 
 # basic hello response
 
@@ -29,8 +29,8 @@ async def hello(ctx):
 @bot.command(pass_context=True)
 async def commands(ctx):
         await ctx.send("""I'm Zenith, a bot made for small-case uses. Written in python3 by Zenreon#3279. 
-``Prefix: >>
-commands : Lists this text.
+**Prefix: >>
+``commands : Lists this text.
 hello : Responds "Hello!"
 mathadd num1 num2
 mathsub num1 num2
@@ -109,6 +109,9 @@ async def mathmult(ctx, x:float, y:float):
                 await ctx.send(result)
         except:
                 pass
+
+# end of math commands
+
 #bot token
 
 bot.run('ODg4NzgzMzUwOTcyNjg2NDI3.YUXt_w.NbSHbqHua142y7HZfV34lbgadOo')
