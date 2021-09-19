@@ -9,4 +9,4 @@ SERVICE=$1
  else 
     echo "no process identified. Exiting..."
  fi 
-     
+     # TODO: Got bored and didn't feel like continuing this project. Will be writing a discord bot instead.
