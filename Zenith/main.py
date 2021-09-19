@@ -9,9 +9,10 @@ import asyncio
 import datetime, time
 
 
-# define bot prefix
+# define bot prefix and edit help command categories
 
-bot = commands.Bot(command_prefix='>>')
+help_command = commands.DefaultHelpCommand(no_category = 'Commands')
+bot = commands.Bot(command_prefix='>>', help_command=help_command)
 
 # init message
 
@@ -25,30 +26,11 @@ async def on_ready():
 async def hello(ctx):
         await ctx.send('Hello, ' +format(ctx.author.mention) +'!')
 
-# >>help output
-
-@bot.command(pass_context=True)
-async def commands(ctx):
-        await ctx.send("""I'm Zenith, a bot made for small-case uses. Written in python3 by Zenreon#3279. 
-**Prefix:** ``>>``
-``
-commands : Lists this text.
-hello : Responds "Hello!"
-mathadd num1 num2
-mathsub num1 num2
-mathmult num1 num2
-mathdiv num1 num2 (num1/num2)
-mathsqrt num1
-mathrand num1 num2
-uptime : Displays total uptime
-time : Displays current CDT date and time``
-        """)
-
 # mentions new user join
 
 @bot.command(pass_context=True)
 async def joined(ctx, member: discord.Member):
-        """Mentions new member"""
+        """Mentions new member upon first arrival"""
         await ctx.send('{0.name} joined in {0.joined_at}'.format(member))
 
 # math functions for calculations
@@ -68,13 +50,14 @@ def sqrt(n: float):
 def mult(n: float, n2: float):
 	return n * n2
 
-def rand(n: int, n2: int):
+def rando(n: int, n2: int):
         return random.randint(n, n2)
+
 # end of math functions
 
 # bot commands for math functions
 
-@bot.command(pass_context=True)
+@bot.command(pass_context=True, brief="""Adds two numbers. Usage: mathadd <num1> <num2>""")
 async def mathadd(ctx, x: float, y: float):
 	try:
 		
@@ -83,7 +66,7 @@ async def mathadd(ctx, x: float, y: float):
 	except:
 		pass
 
-@bot.command(pass_context=True)
+@bot.command(pass_context=True, brief="""Subtracts two numbers. Usage: mathsub <num1> <num2>""")
 async def mathsub(ctx, x: float, y: float):
         try:
                 result = sub(x, y)
@@ -92,7 +75,7 @@ async def mathsub(ctx, x: float, y: float):
         except:
                 pass
 
-@bot.command(pass_context=True)
+@bot.command(pass_context=True, brief="""Divides two numbers. Usage: mathdiv <num1> <num2>.""")
 async def mathdiv(ctx, x: float, y:float):
         try:
                 result = div(x, y)
@@ -101,7 +84,7 @@ async def mathdiv(ctx, x: float, y:float):
         except:
                 pass
 
-@bot.command(pass_context=True)
+@bot.command(pass_context=True, brief="""Takes the square root of any float. Usage: mathsqrt <num1>""")
 async def mathsqrt(ctx, x:float):
         try:
                 result =  sqrt(x)
@@ -109,7 +92,7 @@ async def mathsqrt(ctx, x:float):
         except:
                 pass
 
-@bot.command(pass_context=True)
+@bot.command(pass_context=True, brief="""Multiplies two numbers. Usage: mathmult <num1> <num2>""")
 async def mathmult(ctx, x:float, y:float):
         try:
                 result = mult(x, y)
@@ -117,9 +100,10 @@ async def mathmult(ctx, x:float, y:float):
         except:
                 pass
 
-@bot.command(pass_context=True)
-async def mathrand(ctx, x:int, y:int):
+@bot.command(pass_context=True, brief="""Random value between two numbers. Usage: mathrando <num1> <num2>""")
+async def mathrando(ctx, x:float, y:float):
         try:
+                result = rando(x, y)
                 await ctx.send(x, y)
         except:
                 pass
@@ -156,6 +140,36 @@ async def uptime(self, ctx):
                 await ctx.send("Current Uptime: " + text)
 
 # end of uptime commands
+
+# tauntself command
+
+@bot.command(pass_context=True, brief='Get an insult thrown at you.')
+async def tauntself(ctx):
+        tauntlist = [
+        'Fuck you, ' +format(ctx.author.mention)+'!', 
+        'You smell like a sack of shit, '+format(ctx.author.mention)+'!',
+        'Imagine being as big of a loser as '+format(ctx.author.mention)+'!'
+        'There are nearly 10 million particles in the universe that we can observe, their mama took the ugly ones and put them into '+format(ctx.author.mention)+'.',] 
+        try:
+                await ctx.send(random.choice(tauntlist))
+        except:
+                pass
+
+# taunt command (event)
+
+# TODO: make this work as a command and not an event + make it work at all lol 
+
+@bot.event
+async def taunt(ctx, message):
+        if message.content.startswith ('>>insult'):
+                insultee = message.content[9:]
+        try:
+                await ctx.send('F you, '+insultee+'!' )
+        except:
+                pass
+
+
+# end of taunt commands
 
 
 #bot token
