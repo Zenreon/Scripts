@@ -123,34 +123,9 @@ async def time(ctx):
 
 # end of time command
 
-# uptime command
+# uptime command TODO: implement
 
-# create cog
-class uptimeTracker(commands.Cog):
-	def __init__(self, bot):
-		self.bot = bot
-# cog created, create listener
-
-@commands.Cog.listener()
-async def on_ready(self):
-	print(f'{self} has been loaded')
-
-
-@bot.command(pass_context=True)
-async def uptime(self, ctx):
-        current_time = time.time()
-        start_time = int(3)
-        difference = int(round(current_time - start_time))
-        text = str(datetime.timedelta(seconds=difference))
-        embed = discord.Embed(colour=0xc8dc6c)
-        embed.add_field(name='Uptime', value=text)
-        embed.set_footer(text=Zenith)
-        try:
-                await ctx.send(embed=embed)
-        except discord.HTTPException:
-                await ctx.send("Current Uptime: " + text)
-
-# end of uptime commands
+# end of uptime command
 
 # tauntself command
 
@@ -168,23 +143,16 @@ async def tauntself(ctx):
 
 # taunt command (event)
 
-# TODO: make this work as a command and not an event + make it work at all lol 
+# TODO: make this work
 
-@bot.event()
-async def on_message(message):
-    if message.content.startswtith('>>insult ')
-    split = message.content.split(" ")
-    insultee = split
-    insultlist = ['Fuck you, ' (insultee)+'!', 
-        'You smell like a sack of shit, '(insultee)+'!',
-        'Imagine being as big of a loser as '(insultee)+'!'
-        'There are nearly 10 million particles in the universe that we can observe, their mama took the ugly ones and put them into '(insultee)+'.',]
-    return split
-    message = return random.choice(insultlist)
-    try:
-        await client.send_message(message)
-    except:
-        pass
+@bot.command()
+async def insult(ctx, *, insultee=None):
+        insultlist = ['Fuck you, '+{insultee}+'!', 'You smell like a sack of shit, '+{insultee}+'!', 'Imagine being as big of a loser as '+{insultee}+'!', 'There are nearly 10 million particles in the universe that we can observe, their mama took the ugly ones and put them into '+{insultee}+'!']
+        x = random.choice(tauntlist)
+        try:
+                await ctx.send(x)
+        except:
+                pass
 
 
 # end of taunt commands
