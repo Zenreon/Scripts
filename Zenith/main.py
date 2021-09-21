@@ -159,14 +159,21 @@ async def tauntself(ctx):
 
 # TODO: make this work as a command and not an event + make it work at all lol 
 
-@bot.event
-async def taunt(ctx, message):
-        if message.content.startswith ('>>insult'):
-                insultee = message.content[9:]
-        try:
-                await ctx.send('F you, '+insultee+'!' )
-        except:
-                pass
+@bot.event()
+async def on_message(message):
+    if message.content.startswtith('>>insult ')
+    split = message.content.split(" ")
+    insultee = split
+    insultlist = ['Fuck you, ' (insultee)+'!', 
+        'You smell like a sack of shit, '(insultee)+'!',
+        'Imagine being as big of a loser as '(insultee)+'!'
+        'There are nearly 10 million particles in the universe that we can observe, their mama took the ugly ones and put them into '(insultee)+'.',]
+    return split
+    message = return random.choice(insultlist)
+    try:
+        await client.send_message(message)
+    except:
+        pass
 
 
 # end of taunt commands
