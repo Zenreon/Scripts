@@ -123,7 +123,18 @@ async def time(ctx):
 
 # end of time command
 
-# uptime tracker and management commands begin
+# uptime command
+
+# create cog
+class uptimeTracker(commands.Cog):
+	def __init__(self, bot):
+		self.bot = bot
+# cog created, create listener
+
+@commands.Cog.listener()
+async def on_ready(self):
+	print(f'{self} has been loaded')
+
 
 @bot.command(pass_context=True)
 async def uptime(self, ctx):
