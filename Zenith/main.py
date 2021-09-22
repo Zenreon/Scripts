@@ -31,7 +31,7 @@ async def hello(ctx):
 # TODO: make this work
 
 @bot.command(pass_context=True, brief='See your joindate')
-async def joindate(joindate())
+async def joindate(joindate()):
 
 # math functions for calculations
 
