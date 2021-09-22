@@ -7,6 +7,7 @@ import os
 import random
 import asyncio
 import datetime, time
+import client as cl
 
 
 # define bot prefix and edit help command categories
@@ -26,12 +27,11 @@ async def on_ready():
 async def hello(ctx):
         await ctx.send('Hello, ' +format(ctx.author.mention) +'!')
 
-# mentions new user join
+# joindate command (in client.py)
+# TODO: make this work
 
-@bot.command(pass_context=True)
-async def joined(ctx, member: discord.Member):
-        """Mentions new member upon first arrival"""
-        await ctx.send('{0.name} joined in {0.joined_at}'.format(member))
+@bot.command(brief='See your joindate')
+async def joindate = cl.joindate
 
 # math functions for calculations
 
@@ -124,6 +124,7 @@ async def time(ctx):
 # end of time command
 
 # uptime command TODO: implement
+
 
 # end of uptime command
 
