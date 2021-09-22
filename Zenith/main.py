@@ -125,6 +125,12 @@ async def time(ctx):
 
 # uptime command TODO: implement
 
+@bot.command(pass_context=True, brief='See your joindate')
+async def joindate(cl.joindate):
+	try:
+		cl.joindate
+	except:
+		pass
 
 # end of uptime command
 
