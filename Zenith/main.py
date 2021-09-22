@@ -7,7 +7,7 @@ import os
 import random
 import asyncio
 import datetime, time
-import client as cl
+from client import joindate
 
 
 # define bot prefix and edit help command categories
@@ -31,7 +31,7 @@ async def hello(ctx):
 # TODO: make this work
 
 @bot.command(pass_context=True, brief='See your joindate')
-async def joindate(cl.joindate)
+async def joindate(joindate())
 
 # math functions for calculations
 
