@@ -30,8 +30,8 @@ async def hello(ctx):
 # joindate command (in client.py)
 # TODO: make this work
 
-@bot.command(brief='See your joindate')
-async def joindate = cl.joindate
+@bot.command(pass_context=True, brief='See your joindate')
+async def joindate(cl.joindate)
 
 # math functions for calculations
 
