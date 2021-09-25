@@ -27,18 +27,17 @@ async def on_ready():
 async def hello(ctx):
         await ctx.send('Hello, ' +format(ctx.author.mention) +'!')
 
-# joindate command (in client.py)
+# joindate command 
 # TODO: make this work
 
-@bot.command(pass_context=True)
+@bot.command(pass_context=True, brief='See your joindate')
 async def joindate(ctx):
-    date_format = "%a, %d %b %Y %I:%M %p"
-    created_at = member.created_at.strftime("%b %d, %Y")
-    member = member.author
-    try:
-        await ctx.send('User created at %M %d %y')
-    except:
-        pass
+        member = message.author
+        date_format = "%a, %d %b %Y %I:%M %p"
+        try:
+                await ctx.send('User '+member+' created at %M %d %Y')
+        except:
+                pass
 
 # math functions for calculations
 
@@ -143,7 +142,7 @@ async def tauntself(ctx):
         tauntlist = [
         'Fuck you, ' +format(ctx.author.mention)+'!', 
         'You smell like a sack of shit, '+format(ctx.author.mention)+'!',
-        'Imagine being as big of a loser as '+format(ctx.author.mention)+'!'
+        'Imagine being as big of a loser as '+format(ctx.author.mention)+'!',
         'There are nearly 10 million particles in the universe that we can observe, their mama took the ugly ones and put them into '+format(ctx.author.mention)+'.',] 
         try:
                 await ctx.send(random.choice(tauntlist))
