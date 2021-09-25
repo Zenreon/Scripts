@@ -7,7 +7,7 @@ import os
 import random
 import asyncio
 import datetime, time
-from client import joindate
+
 
 
 # define bot prefix and edit help command categories
@@ -30,8 +30,15 @@ async def hello(ctx):
 # joindate command (in client.py)
 # TODO: make this work
 
-@bot.command(pass_context=True, brief='See your joindate')
-async def joindate(joindate()):
+@bot.command(pass_context=True)
+async def joindate(ctx):
+    date_format = "%a, %d %b %Y %I:%M %p"
+    created_at = member.created_at.strftime("%b %d, %Y")
+    member = member.author
+    try:
+        await ctx.send('User created at %M %d %y')
+    except:
+        pass
 
 # math functions for calculations
 
@@ -125,12 +132,7 @@ async def time(ctx):
 
 # uptime command TODO: implement
 
-@bot.command(pass_context=True, brief='See your joindate')
-async def joindate(cl.joindate):
-	try:
-		cl.joindate
-	except:
-		pass
+
 
 # end of uptime command
 
