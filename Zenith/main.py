@@ -8,8 +8,6 @@ import random
 import asyncio
 import datetime, time
 
-
-
 # define bot prefix and edit help command categories
 help_command = commands.DefaultHelpCommand(no_category = 'Commands')
 bot = commands.Bot(command_prefix='>>', help_command=help_command)
@@ -26,7 +24,6 @@ async def hello(ctx):
 
 # joindate command 
 # TODO: make this work
-
 @bot.command(pass_context=True, brief='See your joindate')
 async def joindate(ctx):
         member = message.author
