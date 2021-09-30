@@ -11,19 +11,16 @@ import datetime, time
 
 
 # define bot prefix and edit help command categories
-
 help_command = commands.DefaultHelpCommand(no_category = 'Commands')
 bot = commands.Bot(command_prefix='>>', help_command=help_command)
 
 # init message
-
 @bot.event
 async def on_ready():
         print('Logged in as Zenith')
 
 # basic hello response
-
-@bot.command(pass_context=True)
+@bot.command(pass_context=True, brief='Say Hi!')
 async def hello(ctx):
         await ctx.send('Hello, ' +format(ctx.author.mention) +'!')
 
@@ -40,7 +37,6 @@ async def joindate(ctx):
                 pass
 
 # math functions for calculations
-
 def add(n: float, n2: float):
 	return n + n2
 
@@ -58,11 +54,9 @@ def mult(n: float, n2: float):
 
 def rando(n: int, n2: int):
         return random.randint(n, n2)
-
 # end of math functions
 
 # bot commands for math functions
-
 @bot.command(pass_context=True, brief="""Adds two numbers. Usage: mathadd <num1> <num2>""")
 async def mathadd(ctx, x: float, y: float):
 	try:
@@ -113,11 +107,7 @@ async def mathrando(ctx, x:float, y:float):
                 await ctx.send(x, y)
         except:
                 pass
-
-# end of math commands
-
 # time output command
-
 @bot.command(pass_context=True)
 async def time(ctx):
         now = datetime.datetime.now()
@@ -126,9 +116,6 @@ async def time(ctx):
                 await ctx.send(showtime)
         except:
                 pass
-
-# end of time command
-
 # uptime command TODO: implement
 
 
@@ -136,7 +123,6 @@ async def time(ctx):
 # end of uptime command
 
 # tauntself command
-
 @bot.command(pass_context=True, brief='Get an insult thrown at you.')
 async def tauntself(ctx):
         tauntlist = [
@@ -148,24 +134,19 @@ async def tauntself(ctx):
                 await ctx.send(random.choice(tauntlist))
         except:
                 pass
-
-# taunt command (event)
-
-# TODO: make this work
-
-@bot.command()
-async def insult(ctx, *, insultee=None):
-        insultlist = ['Fuck you, '+{insultee}+'!', 'You smell like a sack of shit, '+{insultee}+'!', 'Imagine being as big of a loser as '+{insultee}+'!', 'There are nearly 10 million particles in the universe that we can observe, their mama took the ugly ones and put them into '+{insultee}+'!']
-        x = random.choice(tauntlist)
+# insult command
+@bot.command(pass_context=True, brief='Insult a specified user. Usage: insult <user>')
+async def insult(ctx, arg):
+        insultee = arg
+        insultlist = [
+        'Fuck you, '+insultee+'!', 
+        'You smell like a sack of shit, '+insultee+'!',
+        'Imagine being as big of a loser as '+insultee+'!',
+        'There are nearly 10 million particles in the universe that we can observe, '+insultee+"""'s mama took the ugly ones and put them into one nerd"""]
+        x = random.choice(insultlist)
         try:
                 await ctx.send(x)
         except:
                 pass
-
-
-# end of taunt commands
-
-
-#bot token
-
+# bot token
 bot.run('ODg4NzgzMzUwOTcyNjg2NDI3.YUXt_w.NbSHbqHua142y7HZfV34lbgadOo')
