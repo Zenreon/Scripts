@@ -8,51 +8,32 @@ import random
 import asyncio
 import datetime, time
 
-
-# define bot prefix
-
-bot = commands.Bot(command_prefix='>>')
+# define bot prefix and edit help command categories
+help_command = commands.DefaultHelpCommand(no_category = 'Commands')
+bot = commands.Bot(command_prefix='>>', help_command=help_command)
 
 # init message
-
 @bot.event
 async def on_ready():
         print('Logged in as Zenith')
 
 # basic hello response
-
-@bot.command(pass_context=True)
+@bot.command(pass_context=True, brief='Say Hi!')
 async def hello(ctx):
         await ctx.send('Hello, ' +format(ctx.author.mention) +'!')
 
-# >>help output
-
-@bot.command(pass_context=True)
-async def commands(ctx):
-        await ctx.send("""I'm Zenith, a bot made for small-case uses. Written in python3 by Zenreon#3279. 
-**Prefix:** ``>>``
-``
-commands : Lists this text.
-hello : Responds "Hello!"
-mathadd num1 num2
-mathsub num1 num2
-mathmult num1 num2
-mathdiv num1 num2 (num1/num2)
-mathsqrt num1
-mathrand num1 num2
-uptime : Displays total uptime
-time : Displays current CDT date and time``
-        """)
-
-# mentions new user join
-
-@bot.command(pass_context=True)
-async def joined(ctx, member: discord.Member):
-        """Mentions new member"""
-        await ctx.send('{0.name} joined in {0.joined_at}'.format(member))
+# joindate command 
+# TODO: make this work
+@bot.command(pass_context=True, brief='See your joindate')
+async def joindate(ctx):
+        member = message.author
+        date_format = "%a, %d %b %Y %I:%M %p"
+        try:
+                await ctx.send('User '+member+' created at %M %d %Y')
+        except:
+                pass
 
 # math functions for calculations
-
 def add(n: float, n2: float):
 	return n + n2
 
@@ -68,13 +49,12 @@ def sqrt(n: float):
 def mult(n: float, n2: float):
 	return n * n2
 
-def rand(n: int, n2: int):
+def rando(n: int, n2: int):
         return random.randint(n, n2)
 # end of math functions
 
 # bot commands for math functions
-
-@bot.command(pass_context=True)
+@bot.command(pass_context=True, brief="""Adds two numbers. Usage: mathadd <num1> <num2>""")
 async def mathadd(ctx, x: float, y: float):
 	try:
 		
@@ -83,7 +63,7 @@ async def mathadd(ctx, x: float, y: float):
 	except:
 		pass
 
-@bot.command(pass_context=True)
+@bot.command(pass_context=True, brief="""Subtracts two numbers. Usage: mathsub <num1> <num2>""")
 async def mathsub(ctx, x: float, y: float):
         try:
                 result = sub(x, y)
@@ -92,7 +72,7 @@ async def mathsub(ctx, x: float, y: float):
         except:
                 pass
 
-@bot.command(pass_context=True)
+@bot.command(pass_context=True, brief="""Divides two numbers. Usage: mathdiv <num1> <num2>.""")
 async def mathdiv(ctx, x: float, y:float):
         try:
                 result = div(x, y)
@@ -101,7 +81,7 @@ async def mathdiv(ctx, x: float, y:float):
         except:
                 pass
 
-@bot.command(pass_context=True)
+@bot.command(pass_context=True, brief="""Takes the square root of any float. Usage: mathsqrt <num1>""")
 async def mathsqrt(ctx, x:float):
         try:
                 result =  sqrt(x)
@@ -109,7 +89,7 @@ async def mathsqrt(ctx, x:float):
         except:
                 pass
 
-@bot.command(pass_context=True)
+@bot.command(pass_context=True, brief="""Multiplies two numbers. Usage: mathmult <num1> <num2>""")
 async def mathmult(ctx, x:float, y:float):
         try:
                 result = mult(x, y)
@@ -117,17 +97,14 @@ async def mathmult(ctx, x:float, y:float):
         except:
                 pass
 
-@bot.command(pass_context=True)
-async def mathrand(ctx, x:int, y:int):
+@bot.command(pass_context=True, brief="""Random value between two numbers. Usage: mathrando <num1> <num2>""")
+async def mathrando(ctx, x:float, y:float):
         try:
+                result = rando(x, y)
                 await ctx.send(x, y)
         except:
                 pass
-
-# end of math commands
-
 # time output command
-
 @bot.command(pass_context=True)
 async def time(ctx):
         now = datetime.datetime.now()
@@ -136,28 +113,37 @@ async def time(ctx):
                 await ctx.send(showtime)
         except:
                 pass
+# uptime command TODO: implement
 
-# end of time command
 
-# uptime tracker and management commands begin
 
-@bot.command(pass_context=True)
-async def uptime(self, ctx):
-        current_time = time.time()
-        start_time = int(3)
-        difference = int(round(current_time - start_time))
-        text = str(datetime.timedelta(seconds=difference))
-        embed = discord.Embed(colour=0xc8dc6c)
-        embed.add_field(name='Uptime', value=text)
-        embed.set_footer(text=Zenith)
+# end of uptime command
+
+# tauntself command
+@bot.command(pass_context=True, brief='Get an insult thrown at you.')
+async def tauntself(ctx):
+        tauntlist = [
+        'Fuck you, ' +format(ctx.author.mention)+'!', 
+        'You smell like a sack of shit, '+format(ctx.author.mention)+'!',
+        'Imagine being as big of a loser as '+format(ctx.author.mention)+'!',
+        'There are nearly 10 million particles in the universe that we can observe, their mama took the ugly ones and put them into '+format(ctx.author.mention)+'.',] 
         try:
-                await ctx.send(embed=embed)
-        except discord.HTTPException:
-                await ctx.send("Current Uptime: " + text)
-
-# end of uptime commands
-
-
-#bot token
-
+                await ctx.send(random.choice(tauntlist))
+        except:
+                pass
+# insult command
+@bot.command(pass_context=True, brief='Insult a specified user. Usage: insult <user>')
+async def insult(ctx, arg):
+        insultee = arg
+        insultlist = [
+        'Fuck you, '+insultee+'!', 
+        'You smell like a sack of shit, '+insultee+'!',
+        'Imagine being as big of a loser as '+insultee+'!',
+        'There are nearly 10 million particles in the universe that we can observe, '+insultee+"""'s mama took the ugly ones and put them into one nerd"""]
+        x = random.choice(insultlist)
+        try:
+                await ctx.send(x)
+        except:
+                pass
+# bot token
 bot.run('ODg4NzgzMzUwOTcyNjg2NDI3.YUXt_w.NbSHbqHua142y7HZfV34lbgadOo')
