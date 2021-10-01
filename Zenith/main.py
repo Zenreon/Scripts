@@ -139,7 +139,7 @@ async def insult(ctx, arg):
         'Fuck you, '+insultee+'!', 
         'You smell like a sack of shit, '+insultee+'!',
         'Imagine being as big of a loser as '+insultee+'!',
-        'There are nearly 10 million particles in the universe that we can observe, '+insultee+"""'s mama took the ugly ones and put them into one nerd"""]
+        'There are nearly 10 million particles in the universe that we can observe, '+insultee+"""'s mama took the ugly ones and put them into one nerd!"""]
         x = random.choice(insultlist)
         try:
                 await ctx.send(x)
