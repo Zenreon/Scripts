@@ -7,16 +7,19 @@ import os
 import random
 import asyncio
 import datetime, time
-
+from datetime import datetime
+from datetime import timedelta
 # define bot prefix and edit help command categories
 help_command = commands.DefaultHelpCommand(no_category = 'Commands')
+bot = discord.Client()
 bot = commands.Bot(command_prefix='>>', help_command=help_command)
-
-# init message
+# init message + uptime variable tracker
 @bot.event
 async def on_ready():
         print('Logged in as Zenith')
-
+global botstart 
+botstart = datetime.now()
+botstart.strftime('%H:%M:%S')
 # basic hello response
 @bot.command(pass_context=True, brief='Say Hi!')
 async def hello(ctx):
@@ -32,7 +35,6 @@ async def joindate(ctx):
                 await ctx.send('User '+member+' created at %M %d %Y')
         except:
                 pass
-
 # math functions for calculations
 def add(n: float, n2: float):
 	return n + n2
@@ -52,7 +54,6 @@ def mult(n: float, n2: float):
 def rando(n: int, n2: int):
         return random.randint(n, n2)
 # end of math functions
-
 # bot commands for math functions
 @bot.command(pass_context=True, brief="""Adds two numbers. Usage: mathadd <num1> <num2>""")
 async def mathadd(ctx, x: float, y: float):
@@ -107,18 +108,22 @@ async def mathrando(ctx, x:float, y:float):
 # time output command
 @bot.command(pass_context=True)
 async def time(ctx):
-        now = datetime.datetime.now()
+        now = datetime.now()
         showtime = (now.strftime("Current CDT date and time: %Y-%m-%d, %H:%M:%S"))
         try:
                 await ctx.send(showtime)
         except:
                 pass
-# uptime command TODO: implement
-
-
-
-# end of uptime command
-
+# uptime command TODO: fix strftime integration
+@bot.command(brief="""See Zenith's uptime""")
+async def uptime(ctx):
+        current = datetime.now()
+        current.strftime('%H:%M:%S')
+        output = botstart - current
+        try:
+               await ctx.send(output)
+        except:
+                pass
 # tauntself command
 @bot.command(pass_context=True, brief='Get an insult thrown at you.')
 async def tauntself(ctx):
