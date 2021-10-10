@@ -24,33 +24,21 @@ botstart.strftime('%H:%M:%S')
 @bot.command(pass_context=True, brief='Say Hi!')
 async def hello(ctx):
         await ctx.send('Hello, ' +format(ctx.author.mention) +'!')
-
 # joindate command 
 # TODO: make this work
 @bot.command(pass_context=True, brief='See your joindate')
-async def joindate(ctx):
-        member = message.author
-        date_format = "%a, %d %b %Y %I:%M %p"
-        try:
-                await ctx.send('User '+member+' created at %M %d %Y')
-        except:
-                pass
+
 # math functions for calculations
 def add(n: float, n2: float):
 	return n + n2
-
 def sub(n: float, n2: float):
 	return n - n2
-
 def div(n: float, n2: float):
 	return n / n2
-
 def sqrt(n: float):
 	return math.sqrt(n)
-
 def mult(n: float, n2: float):
 	return n * n2
-
 def rando(n: int, n2: int):
         return random.randint(n, n2)
 # end of math functions
@@ -63,7 +51,6 @@ async def mathadd(ctx, x: float, y: float):
 
 	except:
 		pass
-
 @bot.command(pass_context=True, brief="""Subtracts two numbers. Usage: mathsub <num1> <num2>""")
 async def mathsub(ctx, x: float, y: float):
         try:
@@ -72,7 +59,6 @@ async def mathsub(ctx, x: float, y: float):
         
         except:
                 pass
-
 @bot.command(pass_context=True, brief="""Divides two numbers. Usage: mathdiv <num1> <num2>.""")
 async def mathdiv(ctx, x: float, y:float):
         try:
@@ -81,7 +67,6 @@ async def mathdiv(ctx, x: float, y:float):
         
         except:
                 pass
-
 @bot.command(pass_context=True, brief="""Takes the square root of any float. Usage: mathsqrt <num1>""")
 async def mathsqrt(ctx, x:float):
         try:
@@ -89,7 +74,6 @@ async def mathsqrt(ctx, x:float):
                 await ctx.send(result)
         except:
                 pass
-
 @bot.command(pass_context=True, brief="""Multiplies two numbers. Usage: mathmult <num1> <num2>""")
 async def mathmult(ctx, x:float, y:float):
         try:
@@ -97,7 +81,6 @@ async def mathmult(ctx, x:float, y:float):
                 await ctx.send(result)
         except:
                 pass
-
 @bot.command(pass_context=True, brief="""Random value between two numbers. Usage: mathrando <num1> <num2>""")
 async def mathrando(ctx, x:float, y:float):
         try:
@@ -118,8 +101,11 @@ async def time(ctx):
 @bot.command(brief="""See Zenith's uptime""")
 async def uptime(ctx):
         current = datetime.now()
-        current.strftime('%H:%M:%S')
-        output = botstart - current
+        currentyear = botstart - current.strftime("%Y")
+        currentmonth = botstart - current.strftime("%m")
+        currentday = botstart - current.strftime("%d")
+        currentdatetime = botstart - current.strftime("%m/%d/%Y, &H:%M:%S")        
+        output = currentdatetime
         try:
                await ctx.send(output)
         except:
