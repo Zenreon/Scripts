@@ -25,9 +25,11 @@ botstart.strftime('%H:%M:%S')
 async def hello(ctx):
         await ctx.send('Hello, ' +format(ctx.author.mention) +'!')
 # joindate command 
-# TODO: make this work
-@bot.command(pass_context=True, brief='See your joindate')
-
+# TODO: implement
+# ping command for checking responses
+@bot.command(pass_context=True, brief='Pong!')
+async def ping(ctx):
+        await ctx.send('Pong!')
 # math functions for calculations
 def add(n: float, n2: float):
 	return n + n2
@@ -110,9 +112,9 @@ async def uptime(ctx):
                await ctx.send(output)
         except:
                 pass
-# tauntself command
+# taunt command
 @bot.command(pass_context=True, brief='Get an insult thrown at you.')
-async def tauntself(ctx):
+async def taunt(ctx):
         tauntlist = [
         'Fuck you, ' +format(ctx.author.mention)+'!', 
         'You smell like a sack of shit, '+format(ctx.author.mention)+'!',
