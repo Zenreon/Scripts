@@ -18,7 +18,7 @@ bot = commands.Bot(command_prefix='>>', help_command=help_command)
 async def on_ready():
         print('Logged in as Zenith')
 global botstart 
-botstart = datetime.now()
+botstart = datetime.today()
 # basic hello response
 @bot.command(pass_context=True, brief='Say Hi!')
 async def hello(ctx):
@@ -102,9 +102,13 @@ async def time(ctx):
 @bot.command(pass_context=True, brief="""See Zenith's uptime""")
 async def uptime(ctx):
         botreadtime = datetime.now()
-        uptimestring = '%H:%M:%S'
-        tdelta = datetime.strptime(str(botreadtime, uptimestring)) - datetime.strptime(str(botstart, uptimestring))
-        await ctx.send(str(tdelta))
+        bottimeday = datetime.today()
+        bottimehour = datetime.hour()
+        bottimeseconds = datetime.second()
+        tdeltaday = bottimeday - botstart
+        tdeltahour = bottimehour - botstarthour
+        tdeltaseconds = bottimeseconds - botstartseconds
+        await ctx.send(tdeltaday)
 # taunt command
 @bot.command(pass_context=True, brief='Get an insult thrown at you.')
 async def taunt(ctx):
