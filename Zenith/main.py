@@ -19,7 +19,6 @@ async def on_ready():
         print('Logged in as Zenith')
 global botstart 
 botstart = datetime.now()
-botstart.strftime('%H:%M:%S')
 # basic hello response
 @bot.command(pass_context=True, brief='Say Hi!')
 async def hello(ctx):
@@ -100,18 +99,12 @@ async def time(ctx):
         except:
                 pass
 # uptime command TODO: fix strftime integration
-@bot.command(brief="""See Zenith's uptime""")
+@bot.command(pass_context=True, brief="""See Zenith's uptime""")
 async def uptime(ctx):
-        current = datetime.now()
-        currentyear = botstart - current.strftime("%Y")
-        currentmonth = botstart - current.strftime("%m")
-        currentday = botstart - current.strftime("%d")
-        currentdatetime = botstart - current.strftime("%m/%d/%Y, &H:%M:%S")        
-        output = currentdatetime
-        try:
-               await ctx.send(output)
-        except:
-                pass
+        botreadtime = datetime.now()
+        uptimestring = '%H:%M:%S'
+        tdelta = datetime.strptime(str(botreadtime, uptimestring)) - datetime.strptime(str(botstart, uptimestring))
+        await ctx.send(str(tdelta))
 # taunt command
 @bot.command(pass_context=True, brief='Get an insult thrown at you.')
 async def taunt(ctx):
