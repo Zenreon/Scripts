@@ -17,14 +17,8 @@ bot = commands.Bot(command_prefix='>>', help_command=help_command)
 @bot.event
 async def on_ready():
         print('Logged in as Zenith')
-global botstartday
-botstartday = datetime.today
-global botstarthour
-botstarthour = datetime.hour
-global botstartminutes
-botstartminutes = datetime.minute
-global botstartseconds
-botstartseconds = datetime.second
+global botstarttime
+botstarttime = datetime.now()
 # basic hello response
 @bot.command(pass_context=True, brief='Say Hi!')
 async def hello(ctx):
@@ -104,19 +98,15 @@ async def time(ctx):
                 await ctx.send(showtime)
         except:
                 pass
-# uptime command TODO: convert bottime* to subtractable outputs
+# uptime command TODO: give output better readability
 @bot.command(pass_context=True, brief="""See Zenith's uptime""")
 async def uptime(ctx):
-        bottimeday = datetime.today
-        bottimehour = datetime.hour
-        bottimeminutes = datetime.minute
-        bottimeseconds = datetime.second
-        tdeltaday = bottimeday - botstartday
-        tdeltahour = bottimehour - botstarthour
-        tdeltaminutes = bottimeminutes - botstartminutes
-        tdeltaseconds = bottimeseconds - botstartseconds
-        tdeltaoutput = ""+tdeltaday+"day(s), "+tdeltahour+"hour(s), "+tdeltaminutes+"minute(s), "+tdeltaseconds+"second(s)."
-        await ctx.send(tdeltaoutput)
+        bottimenow = datetime.now()
+        tdeltaoutput = bottimenow - botstarttime
+        try:
+                await ctx.send(tdeltaoutput)
+        except:
+                pass
 # taunt command
 @bot.command(pass_context=True, brief='Get an insult thrown at you.')
 async def taunt(ctx):
