@@ -13,12 +13,12 @@ from datetime import timedelta
 help_command = commands.DefaultHelpCommand(no_category = 'Commands')
 bot = discord.Client()
 bot = commands.Bot(command_prefix='>>', help_command=help_command)
-# init message + uptime variable tracker
+# init message + uptime global trackers
 @bot.event
 async def on_ready():
         print('Logged in as Zenith')
-global botstart 
-botstart = datetime.today()
+global botstarttime
+botstarttime = datetime.now()
 # basic hello response
 @bot.command(pass_context=True, brief='Say Hi!')
 async def hello(ctx):
@@ -98,17 +98,15 @@ async def time(ctx):
                 await ctx.send(showtime)
         except:
                 pass
-# uptime command TODO: fix strftime integration
+# uptime command TODO: give output better readability
 @bot.command(pass_context=True, brief="""See Zenith's uptime""")
 async def uptime(ctx):
-        botreadtime = datetime.now()
-        bottimeday = datetime.today()
-        bottimehour = datetime.hour()
-        bottimeseconds = datetime.second()
-        tdeltaday = bottimeday - botstart
-        tdeltahour = bottimehour - botstarthour
-        tdeltaseconds = bottimeseconds - botstartseconds
-        await ctx.send(tdeltaday)
+        bottimenow = datetime.now()
+        tdeltaoutput = bottimenow - botstarttime
+        try:
+                await ctx.send(tdeltaoutput)
+        except:
+                pass
 # taunt command
 @bot.command(pass_context=True, brief='Get an insult thrown at you.')
 async def taunt(ctx):
