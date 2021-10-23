@@ -98,15 +98,13 @@ async def time(ctx):
                 await ctx.send(showtime)
         except:
                 pass
-# uptime command TODO: give output better readability
+# uptime command, works but could use formatting inside the sent output
 @bot.command(pass_context=True, brief="""See Zenith's uptime""")
 async def uptime(ctx):
         bottimenow = datetime.now()
-        tdeltaoutput = bottimenow - botstarttime
-        try:
-                await ctx.send(tdeltaoutput)
-        except:
-                pass
+        formatmsg = ('H:MM:SS:MS')
+        await ctx.send(formatmsg)
+        await ctx.send(str(bottimenow - botstarttime))      
 # taunt command
 @bot.command(pass_context=True, brief='Get an insult thrown at you.')
 async def taunt(ctx):
