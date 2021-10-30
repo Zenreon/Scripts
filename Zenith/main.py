@@ -101,10 +101,9 @@ async def time(ctx):
 # uptime command, works but could use formatting inside the sent output
 @bot.command(pass_context=True, brief="""See Zenith's uptime""")
 async def uptime(ctx):
-        bottimenow = datetime.now()
-        formatmsg = ('H:MM:SS:MS')
-        await ctx.send(formatmsg)
-        await ctx.send(str(bottimenow - botstarttime))      
+        uptime = str(((datetime.now() - botstarttime)))
+        await ctx.send(('H:MM:SS:MS'))
+        await ctx.send(uptime)
 # taunt command
 @bot.command(pass_context=True, brief='Get an insult thrown at you.')
 async def taunt(ctx):
