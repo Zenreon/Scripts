@@ -132,4 +132,4 @@ async def insult(ctx, arg):
         except:
                 pass
 # bot token
-bot.run('ODg4NzgzMzUwOTcyNjg2NDI3.YUXt_w.NbSHbqHua142y7HZfV34lbgadOo')
+bot.run('')
