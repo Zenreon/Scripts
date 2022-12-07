@@ -4,7 +4,7 @@ set "params=%*"
 cd /d "%~dp0" && ( if exist "%temp%\getadmin.vbs" del "%temp%\getadmin.vbs" ) && fsutil dirty query %systemdrive% 1>nul 2>nul || (  echo Set UAC = CreateObject^("Shell.Application"^) : UAC.ShellExecute "cmd.exe", "/k cd ""%~sdp0"" && %~s0 %params%", "", "runas", 1 >> "%temp%\getadmin.vbs" && "%temp%\getadmin.vbs" && exit /B )
 :: Get admin End
 :: Start VRC When init from steam, sleep for EAC init
-START start_protected_game1.exe
+START launch.exe
 ping -n 61 127.0.0.1 > nul
 :: Check if VRC is running
 tasklist /fi "ImageName eq VRChat.exe" /fo csv 2>NUL | find /I "VRChat.exe">NUL
