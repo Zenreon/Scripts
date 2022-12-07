@@ -8,6 +8,4 @@ tasklist /fi "ImageName eq VRChat.exe" /fo csv 2>NUL | find /I "VRChat.exe">NUL
 if "%ERRORLEVEL%"=="0" (ping -n 6 127.0.0.1 > nul) else (echo VRChat is not running.)
 if "%ERRORLEVEL%"=="0" (taskkill /f /im EasyAntiCheat_EOS.exe)
 
-
-
 exit
