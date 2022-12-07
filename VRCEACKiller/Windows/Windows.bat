@@ -9,5 +9,5 @@ if "%ERRORLEVEL%"=="0" (ping -n 6 127.0.0.1 > nul) else (echo VRChat is not runn
 if "%ERRORLEVEL%"=="0" (taskkill /f /im EasyAntiCheat_EOS.exe)
 
 
-PAUSE
+
 exit
