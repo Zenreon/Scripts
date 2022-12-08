@@ -4,4 +4,4 @@ Installation on Windows:
 2. Add the following to your launch options for VRChat: 
 ```"elevated.bat" %command%```
 
-Installation on Linux:
+
