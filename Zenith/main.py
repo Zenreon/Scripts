@@ -109,8 +109,4 @@ async def insult(ctx, arg):
         x = random.choice(insultlist)
         await ctx.respond(x)
 
-<<<<<<< HEAD
-bot.run('ODg4NzgzMzUwOTcyNjg2NDI3.GJZ2Q4.ErXUSgpmfspsj3i_zDmTU9LGyWJe7dZD8uAdW4')
-=======
 bot.run('')
->>>>>>> 7f1071a2bc444f924f13e261920a2515ca0ef517
