@@ -1,4 +1,4 @@
-#sdependencies: discord.py
+#built through pycord 
 #import libraries
 from asyncio import sleep
 import math
@@ -14,28 +14,42 @@ from datetime import timedelta
 #define bot prefix and edit help command categories
 help_command = commands.DefaultHelpCommand(no_category = 'Commands')
 bot = discord.Client(intents=discord.Intents.all())
-bot = commands.Bot(intents=discord.Intents.all(), command_prefix='>>', help_command=help_command)
+bot = commands.Bot(intents=discord.Intents.all())
 #init message + uptime global trackers
 @bot.event
 async def on_ready():
         print('Logged in as Zenith')
 global botstarttime
 botstarttime = datetime.now()
-#slash help command
-@bot.slash_command(name='help', description='shows the help menu.', guild_id=888782260852113438)
+#help command
+help_command = """```
+/help: displays this prompt.
+
+/hello: hello!
+
+/ping: pong!
+
+/math(add, sub, div, squrt, mult, rando) x y: math operations.
+
+/time (timezone/state/country): shows local time to specified location.
+
+/uptime: displays Zenith's time since launch.
+
+/insult (user): insults targeted user from a random list of insults.```"""
+@bot.slash_command(description='shows the help menu.')
 async def help(ctx):
         await ctx.respond(help_command)
-#basic hello response
+#hello command
 @bot.slash_command(name='hello', description='Say Hi!')
 async def hello(ctx):
         await ctx.respond('Hello, ' +format(ctx.author.mention) +'!')
 #joindate command TODO
 
-#ping command for checking responses
-@bot.slash_command(name='ping', description='Pong!')
+#ping command
+@bot.slash_command(description='Pong!')
 async def ping(ctx):
         await ctx.respond('Pong!')
-#math functions for calculations
+#math functions 
 def add(n: float, n2: float):
 	return n + n2
 def sub(n: float, n2: float):
@@ -48,78 +62,41 @@ def mult(n: float, n2: float):
 	return n * n2
 def rando(n: int, n2: int):
         return random.randint(n, n2)
-#bot commands for math functions
-@bot.command(pass_context=True, brief="""Adds two numbers. Usage: mathadd <num1> <num2>""")
-async def mathadd(ctx, x: float, y: float):
-	try:
-		
-		await ctx.send(add(x, y))
-
-	except:
-		pass
-@bot.command(pass_context=True, brief="""Subtracts two numbers. Usage: mathsub <num1> <num2>""")
+#math commands
+@bot.slash_command(description="""Adds two numbers. Usage: mathadd <num1> <num2>""")
+async def mathadd(ctx, x: float, y: float):	
+	await ctx.respond(add(x, y))\
+@bot.slash_command(description="""Subtracts two numbers. Usage: mathsub <num1> <num2>""")
 async def mathsub(ctx, x: float, y: float):
-        try:
-                result = sub(x, y)
-                await ctx.send(result)
-        
-        except:
-                pass
-@bot.command(pass_context=True, brief="""Divides two numbers. Usage: mathdiv <num1> <num2>.""")
+        result = sub(x, y)
+        await ctx.respond(result)
+@bot.slash_command(description="""Divides two numbers. Usage: mathdiv <num1> <num2>.""")
 async def mathdiv(ctx, x: float, y:float):
-        try:
-                result = div(x, y)
-                await ctx.send(result)
-        
-        except:
-                pass
-@bot.command(pass_context=True, brief="""Takes the square root of any float. Usage: mathsqrt <num1>""")
+        result = div(x, y)
+        await ctx.respond(result)
+@bot.slash_command(description="""Takes the square root of any float. Usage: mathsqrt <num1>""")
 async def mathsqrt(ctx, x:float):
-        try:
-                result =  sqrt(x)
-                await ctx.send(result)
-        except:
-                pass
-@bot.command(pass_context=True, brief="""Multiplies two numbers. Usage: mathmult <num1> <num2>""")
+        result =  sqrt(x)
+        await ctx.respond(result)
+@bot.slash_command(description="""Multiplies two numbers. Usage: mathmult <num1> <num2>""")
 async def mathmult(ctx, x:float, y:float):
-        try:
-                result = mult(x, y)
-                await ctx.send(result)
-        except:
-                pass
-@bot.command(pass_context=True, brief="""Random value between two numbers. Usage: mathrando <num1> <num2>""")
+        result = mult(x, y)
+        await ctx.respond(result)
+@bot.slash_command(description="""Random value between two numbers. Usage: mathrando <num1> <num2>""")
 async def mathrando(ctx, x:float, y:float):
-        try:
-                result = rando(x, y)
-                await ctx.send(x, y)
-        except:
-                pass
+        result = rando(x, y)
+        await ctx.respond(x, y)
 #time output command
 @bot.slash_command(name='time', description='show CDT date and time.')
 async def time(ctx):
         now = datetime.now()
         showtime = (now.strftime("Current CDT date and time: %Y-%m-%d, %H:%M:%S"))
-        try:
-                await ctx.respond(showtime)
-        except:
-                pass
+        await ctx.respond(showtime)
 #uptime command
 @bot.slash_command(name='uptime', description="""See Zenith's uptime""")
 async def uptime(ctx):
         bottimenow = datetime.now()
         await ctx.respond(str(bottimenow - botstarttime))      
-#taunt command
-@bot.slash_command(name='taunt', description='Get an insult thrown at you.')
-async def taunt(ctx):
-        tauntlist = [
-        'Fuck you, ' +format(ctx.author.mention)+'!', 
-        'You smell like a sack of shit, '+format(ctx.author.mention)+'!',
-        'Imagine being as big of a loser as '+format(ctx.author.mention)+'!',
-        'There are nearly 10 million particles in the universe that we can observe, their mama took the ugly ones and put them into '+format(ctx.author.mention)+'.',] 
-        try:
-                await ctx.respond(random.choice(tauntlist))
-        except:
-                pass
 #insult command
 @bot.slash_command(name='insult', description='Insult a specified user. Usage: insult <user>')
 async def insult(ctx, arg):
@@ -130,9 +107,6 @@ async def insult(ctx, arg):
         'Imagine being as big of a loser as '+insultee+'!',
         'There are nearly 10 million particles in the universe that we can observe, '+insultee+"""'s mama took the ugly ones and put them into one nerd!"""]
         x = random.choice(insultlist)
-        try:
-                await ctx.respond(x)
-        except:
-                pass
+        await ctx.respond(x)
 
-bot.run('ODg4NzgzMzUwOTcyNjg2NDI3.G5T8rK.1V8OQwyGwvRvgkDagRExIZTX3Ciufk0h67jtvI')
+bot.run('ODg4NzgzMzUwOTcyNjg2NDI3.GJZ2Q4.ErXUSgpmfspsj3i_zDmTU9LGyWJe7dZD8uAdW4')
