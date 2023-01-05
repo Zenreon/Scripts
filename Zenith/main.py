@@ -1,4 +1,5 @@
-#built through pycord 
+#built through pycord
+#dependencies: pycord pytz
 #import libraries
 from asyncio import sleep
 import math
@@ -11,6 +12,8 @@ import asyncio
 import datetime, time
 from datetime import datetime
 from datetime import timedelta
+from datetime import timezone
+import pytz
 #define bot prefix and edit help command categories
 help_command = commands.DefaultHelpCommand(no_category = 'Commands')
 bot = discord.Client(intents=discord.Intents.all())
@@ -31,7 +34,7 @@ help_command = """```
 
 /math(add, sub, div, squrt, mult, rando) x y: math operations.
 
-/time (timezone/state/country): shows local time to specified location.
+/time (timezone): shows local time to specified location.
 
 /uptime: displays Zenith's time since launch.
 
@@ -87,11 +90,18 @@ async def mathrando(ctx, x:float, y:float):
         result = rando(x, y)
         await ctx.respond(x, y)
 #time output command
-@bot.slash_command(name='time', description='show CDT date and time.')
-async def time(ctx):
-        now = datetime.now()
-        showtime = (now.strftime("Current CDT date and time: %Y-%m-%d, %H:%M:%S"))
-        await ctx.respond(showtime)
+@bot.slash_command(description='Show date and time on specified timezone.')
+async def time(ctx, arg):       
+        if (arg == "UTC"):
+                UTC = pytz.utc
+                datetime_utc = datetime.now(UTC)
+                await ctx.respond(datetime_utc.strftime("Current UTC date and time:  "+"%Y/%m/%d %H:%M:%S"))
+        elif (arg == "CST"):
+                CST = pytz.cst
+                datetime_cst = datetime.now(CST)
+                await ctx.respond(datetime_cst.strftime("Current CST date and time: "+"%Y/%m/%d %H:%M:%S"))
+        else:
+                await ctx.respond("Error")
 #uptime command
 @bot.slash_command(name='uptime', description="""See Zenith's uptime""")
 async def uptime(ctx):
@@ -109,4 +119,4 @@ async def insult(ctx, arg):
         x = random.choice(insultlist)
         await ctx.respond(x)
 
-bot.run('')
+bot.run('ODg4NzgzMzUwOTcyNjg2NDI3.G5ByLB.wCHA4bow0ruMVuou3QiF1yqD1dTdI5-IcQedpk')
