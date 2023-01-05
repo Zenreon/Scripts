@@ -119,4 +119,4 @@ async def insult(ctx, arg):
         x = random.choice(insultlist)
         await ctx.respond(x)
 
-bot.run('ODg4NzgzMzUwOTcyNjg2NDI3.G5ByLB.wCHA4bow0ruMVuou3QiF1yqD1dTdI5-IcQedpk')
+bot.run()
