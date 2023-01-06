@@ -14,6 +14,7 @@ from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
 import pytz
+from pytz import timezone
 #define bot prefix and edit help command categories
 help_command = commands.DefaultHelpCommand(no_category = 'Commands')
 bot = discord.Client(intents=discord.Intents.all())
@@ -34,7 +35,7 @@ help_command = """```
 
 /math(add, sub, div, squrt, mult, rando) x y: math operations.
 
-/time (timezone): shows local time to specified location.
+/time (timezone): displays current time to given timezone.
 
 /uptime: displays Zenith's time since launch.
 
@@ -92,14 +93,26 @@ async def mathrando(ctx, x:float, y:float):
 #time output command
 @bot.slash_command(description='Show date and time on specified timezone.')
 async def time(ctx, arg):       
-        if (arg == "UTC"):
+        if (arg == "UTC" or arg == "utc"):
                 UTC = pytz.utc
                 datetime_utc = datetime.now(UTC)
                 await ctx.respond(datetime_utc.strftime("Current UTC date and time:  "+"%Y/%m/%d %H:%M:%S"))
-        elif (arg == "CST"):
-                CST = pytz.cst
+        elif (arg == "CST" or arg == "cst"):
+                CST = timezone('US/Central')
                 datetime_cst = datetime.now(CST)
                 await ctx.respond(datetime_cst.strftime("Current CST date and time: "+"%Y/%m/%d %H:%M:%S"))
+        elif (arg == "EST" or arg == "est"):
+                EST = timezone('US/Eastern')
+                datetime_est = datetime.now(EST)
+                await ctx.respond(datetime_est.strftime("Current EST date and time: "+"%Y/%m/%d %H:%M:%S"))
+        elif (arg == "MST" or arg == "mst"):
+                MST = timezone('US/Mountain')
+                datetime_mst = datetime.now(MST)
+                await ctx.respond(datetime_mst.strftime("Current MST date and time: "+"%Y/%m/%d %H:%M:%S"))
+        elif (arg == "PST" or arg == "pst"):
+                PST = timezone('US/Pacific')
+                datetime_pst = datetime.now(PST)
+                await ctx.respond(datetime_pst.strftime("Current PST date and time: "+"%Y/%m/%d %H:%M:%S"))
         else:
                 await ctx.respond("Error")
 #uptime command
@@ -119,4 +132,4 @@ async def insult(ctx, arg):
         x = random.choice(insultlist)
         await ctx.respond(x)
 
-bot.run()
+bot.run('')
