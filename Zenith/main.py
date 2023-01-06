@@ -68,14 +68,14 @@ def rando(n: int, n2: int):
         return random.randint(n, n2)
 #math commands
 @bot.slash_command(description="""Adds two numbers. Usage: mathadd <num1> <num2>""")
-async def mathadd(ctx, x: float, y: float):	
+async def mathadd(ctx, x:float, y:float):	
 	await ctx.respond(add(x, y))\
 @bot.slash_command(description="""Subtracts two numbers. Usage: mathsub <num1> <num2>""")
-async def mathsub(ctx, x: float, y: float):
+async def mathsub(ctx, x:float, y:float):
         result = sub(x, y)
         await ctx.respond(result)
 @bot.slash_command(description="""Divides two numbers. Usage: mathdiv <num1> <num2>.""")
-async def mathdiv(ctx, x: float, y:float):
+async def mathdiv(ctx, x:float, y:float):
         result = div(x, y)
         await ctx.respond(result)
 @bot.slash_command(description="""Takes the square root of any float. Usage: mathsqrt <num1>""")
@@ -114,7 +114,7 @@ async def time(ctx, arg):
                 datetime_pst = datetime.now(PST)
                 await ctx.respond(datetime_pst.strftime("Current PST date and time: "+"%Y/%m/%d %H:%M:%S"))
         else:
-                await ctx.respond("Error")
+                await ctx.respond("Undetected timezone. Is it American?")
 #uptime command
 @bot.slash_command(name='uptime', description="""See Zenith's uptime""")
 async def uptime(ctx):
