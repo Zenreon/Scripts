@@ -1,6 +1,6 @@
-#built through pycord
-#dependencies: pycord pytz
-#import libraries
+# built through pycord
+# dependencies: pycord pytz
+# import libraries
 from asyncio import sleep
 import math
 import discord
@@ -15,17 +15,17 @@ from datetime import timedelta
 from datetime import timezone
 import pytz
 from pytz import timezone
-#define bot prefix and edit help command categories
+# define bot prefix and edit help command categories
 help_command = commands.DefaultHelpCommand(no_category = 'Commands')
 bot = discord.Client(intents=discord.Intents.all())
 bot = commands.Bot(intents=discord.Intents.all())
-#init message + uptime global trackers
+# init message + uptime global trackers
 @bot.event
 async def on_ready():
         print('Logged in as Zenith')
 global botstarttime
 botstarttime = datetime.now()
-#help command
+# help command
 help_command = """```
 /help: displays this prompt.
 
@@ -43,15 +43,15 @@ help_command = """```
 @bot.slash_command(description='shows the help menu.')
 async def help(ctx):
         await ctx.respond(help_command)
-#hello command
+# hello command
 @bot.slash_command(name='hello', description='Say Hi!')
 async def hello(ctx):
         await ctx.respond('Hello, ' +format(ctx.author.mention) +'!')
-#ping command
+# ping command
 @bot.slash_command(description='Pong!')
 async def ping(ctx):
         await ctx.respond('Pong!')
-#math functions 
+# math functions 
 def add(n: float, n2: float):
 	return n + n2
 def sub(n: float, n2: float):
