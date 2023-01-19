@@ -1,5 +1,5 @@
 # built through pycord
-# dependencies: py-cord pytz discord 
+# dependencies: py-cord pytz 
 # import libraries
 from asyncio import sleep
 import math
