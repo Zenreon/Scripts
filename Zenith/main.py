@@ -35,7 +35,7 @@ help_command = """```
 
 /math(add, sub, div, squrt, mult, rando) x y: math operations.
 
-/time (timezone): displays current time to given timezone.
+/time (timezone/state): displays current time to given timezone.
 
 /uptime: displays Zenith's time since launch.
 
