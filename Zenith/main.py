@@ -1,7 +1,7 @@
 # built through pycord
 # dependencies: py-cord pytz 
 # import libraries
-from asyncio import sleep
+from asyncio import sleep, timeout
 import math
 import discord
 from discord import default_permissions
@@ -25,21 +25,35 @@ async def on_ready():
         print('Logged in as Zenith')
 global botstarttime
 botstarttime = datetime.now()
+global mutedrole
+mutedrole = 'TODO'
 # help command
 help_command = """```
-/help: displays this prompt.
+Generalized Commands:
+        /help: displays this prompt.
 
-/hello: hello!
+        /hello: hello!
 
-/ping: pong!
+        /ping: pong!
 
-/math(add, sub, div, squrt, mult, rando) x y: math operations.
+        /math(add, sub, div, squrt, mult, rando) x y: math operations.
 
-/time (timezone/state): displays current time to given timezone.
+        /time (timezone/state): displays current time to given timezone.
 
-/uptime: displays Zenith's time since launch.
+        /uptime: displays Zenith's time since launch.
 
-/insult (user): insults targeted user from a random list of insults.```"""
+        /insult (user): insults targeted user from a random list of insults.
+Elevated Commands:
+        /ban (user) (reason): Bans a specified user from the server.
+
+        /banlist: Displays a list of all banned users.
+
+        /mutelist: Displays a list of all muted users and their remaining duration of mute. 
+
+        /unban (user): Unbans a specified user from the server.
+        
+        /mute (user) (time in minutes): Mutes a specified user by assigning a server based mute role. ```"""
+
 @bot.slash_command(description='shows the help menu.')
 async def help(ctx):
         await ctx.respond(help_command)
@@ -150,5 +164,15 @@ async def insult(ctx, arg):
         'There are nearly 10 million particles in the universe that we can observe, '+insultee+"""'s mama took the ugly ones and put them into one nerd!"""]
         x = random.choice(insultlist)
         await ctx.respond(x)
+# ban commnad
+@bot.slash_command(name='ban', description = 'Bans a specified user. Usage: ban <user>')
+async def ban (ctx, user: discord.Member, *, reason = 'None'):
+        await user.ban(reason = reason)
+# mute command
+@bot.slash_command(name = 'mute', descriptions = 'Mutes a specified user by assigning a mute role for X time in minutes')
+async def mute (ctx, arg, *, user: discord.Member, muterole: mutedrole, time: int):
+        await user.add_roles(mutedrole)
+        user.remove_roles.timeout(time)
+        await ctx.send('User '+discord.Member+" unmuted.")
 # token
 bot.run('')
