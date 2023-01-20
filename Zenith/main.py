@@ -172,6 +172,7 @@ async def ban (ctx, user: discord.Member, *, reason = 'None'):
 @bot.slash_command(name = 'mute', descriptions = 'Mutes a specified user by assigning a mute role for X time in minutes')
 async def mute (ctx, arg, *, user: discord.Member, muterole: mutedrole, time: int):
         await user.add_roles(mutedrole)
+        await ctx.send('User '+discord.Member+' muted.')
         user.remove_roles.timeout(time)
         await ctx.send('User '+discord.Member+" unmuted.")
 # token
