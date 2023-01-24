@@ -25,8 +25,6 @@ async def on_ready():
         print('Logged in as Zenith')
 global botstarttime
 botstarttime = datetime.now()
-global mutedrole
-mutedrole = 'TODO'
 # help command
 help_command = """```
 Generalized Commands:
@@ -38,13 +36,13 @@ Generalized Commands:
 
         /math(add, sub, div, squrt, mult, rando) x y: math operations.
 
-        /time (timezone/state): displays current time to given timezone.
+        /time (timezone/state): displays current time to given timezone or US state.
 
         /uptime: displays Zenith's time since launch.
 
         /insult (user): insults targeted user from a random list of insults.
+
 Elevated Commands:
-        /ban (user) (reason): Bans a specified user from the server.
 
         /banlist: Displays a list of all banned users.
 
@@ -52,7 +50,11 @@ Elevated Commands:
 
         /unban (user): Unbans a specified user from the server.
         
-        /mute (user) (time in minutes): Mutes a specified user by assigning a server based mute role. ```"""
+        /mute (user) (time in minutes): Mutes a specified user by assigning a server based mute role. 
+
+Configuration Commands (Elevated):
+        /mutedrole (role name): Specified the role used to add a user to when user is muted. Case Sensitive. 
+```"""
 
 @bot.slash_command(description='shows the help menu.')
 async def help(ctx):
@@ -164,16 +166,16 @@ async def insult(ctx, arg):
         'There are nearly 10 million particles in the universe that we can observe, '+insultee+"""'s mama took the ugly ones and put them into one nerd!"""]
         x = random.choice(insultlist)
         await ctx.respond(x)
-# ban commnad
-@bot.slash_command(name='ban', description = 'Bans a specified user. Usage: ban <user>')
-async def ban (ctx, user: discord.Member, *, reason = 'None'):
-        await user.ban(reason = reason)
+# muted role config command
+@bot.slash_command(name ="mutedrole", description = 'Specify a role to add to a user when muted by a priviledged user. Case sensitive')
+async def mutedrole(ctx, arg):
+        global mutedrole
+        mutedrole = arg
 # mute command
-@bot.slash_command(name = 'mute', descriptions = 'Mutes a specified user by assigning a mute role for X time in minutes')
-async def mute (ctx, arg, *, user: discord.Member, muterole: mutedrole, time: int):
+@bot.slash_command(name = 'mute', description = 'Mutes a specified user by assigning a mute role for X time in minutes')
+async def mute (ctx, arg, *, user: discord.Member, time: int):
         await user.add_roles(mutedrole)
         await ctx.send('User '+discord.Member+' muted.')
         user.remove_roles.timeout(time)
         await ctx.send('User '+discord.Member+" unmuted.")
-# token
 bot.run('')
