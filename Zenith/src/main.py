@@ -59,6 +59,10 @@ Configuration Commands (Elevated):
 @bot.slash_command(description='shows the help menu.')
 async def help(ctx):
         await ctx.respond(help_command)
+# cog math #TODO
+@bot.slash_command(name='math')
+async def math(ctx):
+        bot.load_extension('cogs.math')
 # hello command
 @bot.slash_command(name='hello', description='Say Hi!')
 async def hello(ctx):
@@ -71,7 +75,7 @@ async def ping(ctx):
 @bot.slash_command(name='uptime', description="""See Zenith's uptime""")
 async def uptime(ctx):
         bottimenow = datetime.now()
-        await ctx.respond(str(bottimenow - botstarttime))      
+        await ctx.respond(str(bottimenow - botstarttime)) 
 # insult command
 @bot.slash_command(name='insult', description='Insult a specified user. Usage: insult <user>')
 async def insult(ctx, arg):
