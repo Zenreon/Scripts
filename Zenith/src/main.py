@@ -56,7 +56,7 @@ Elevated Commands:
 Configuration Commands (Elevated):
 
         /mutedrole (role): Specified the role used to add a user to when user is muted. Case Sensitive. 
-        
+
         /adminrole (role): Specifiy the role used to add a user to admin. 
 ```"""
 
@@ -122,4 +122,4 @@ async def mute (ctx, user: discord.Member, time: int):
         await ctx.send('User '+discord.Member+' muted.')
         user.remove_roles.timeout(time)
         await ctx.send('User '+discord.Member+" unmuted.")
-bot.run('ODg4NzgzMzUwOTcyNjg2NDI3.Grt35J.GAq0tPvEovHVmhWS0TZIz3BF0JrGwRm4qFqj7s')
+bot.run('')
