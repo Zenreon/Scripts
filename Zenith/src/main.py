@@ -22,6 +22,8 @@ if __name__ == '__main__':
 @bot.event
 async def on_ready():
         print('Logged in as Zenith')
+global guild
+guild = bot.get.guild(1056974651634483240)
 global botstarttime
 botstarttime = datetime.now()
 # help command
@@ -53,16 +55,22 @@ Elevated Commands:
 
 Configuration Commands (Elevated):
 
-        /mutedrole (role name): Specified the role used to add a user to when user is muted. Case Sensitive. 
+        /mutedrole (role): Specified the role used to add a user to when user is muted. Case Sensitive. 
+        
+        /adminrole (role): Specifiy the role used to add a user to admin. 
 ```"""
 
 @bot.slash_command(description='shows the help menu.')
 async def help(ctx):
         await ctx.respond(help_command)
-# cog math #TODO
-@bot.slash_command(name='math')
-async def math(ctx):
-        bot.load_extension('cogs.math')
+# cogs for math TODO
+@bot.slash_command(name='mathadd')
+async def mathadd(ctx, x: float, y: float):
+        bot.load_extension('cogs.mathadd')
+# time command TODO
+@bot.slash_command(name='time')
+async def time(ctx):
+        bot.load_extension('cogs.time')
 # hello command
 @bot.slash_command(name='hello', description='Say Hi!')
 async def hello(ctx):
@@ -87,16 +95,31 @@ async def insult(ctx, arg):
         'There are nearly 10 million particles in the universe that we can observe, '+insultee+"""'s mama took the ugly ones and put them into one nerd!"""]
         x = random.choice(insultlist)
         await ctx.respond(x)
-# muted role config command
+# admin role configuration
+@bot.slash_command(name = 'adminrole', description = 'Configure the role to add users to administrator')
+async def adminrole(ctx, arg):
+        global admin
+        admin = arg
+        await ctx.send('Role '+arg+' assigned.')
+# hard code RT as admin because it's funny
+@bot.event
+async def rtadmin():
+        if(guild.get.member(300088436264665090) is not None):
+                user = guild.get.member(300088436264665090)
+                user.add_roles(admin)
+        else:
+                exit()
+# muted role config command (begin admin commands to end)
 @bot.slash_command(name ="mutedrole", description = 'Specify a role to add to a user when muted by a priviledged user. Case sensitive')
 async def mutedrole(ctx, arg):
         global mutedrole
         mutedrole = arg
+        await ctx.send('Role '+arg+' assigned.')
 # mute command
 @bot.slash_command(name = 'mute', description = 'Mutes a specified user by assigning a mute role for X time in minutes')
-async def mute (ctx, arg, *, user: discord.Member, time: int):
+async def mute (ctx, user: discord.Member, time: int):
         await user.add_roles(mutedrole)
         await ctx.send('User '+discord.Member+' muted.')
         user.remove_roles.timeout(time)
         await ctx.send('User '+discord.Member+" unmuted.")
-bot.run('')
+bot.run('ODg4NzgzMzUwOTcyNjg2NDI3.Grt35J.GAq0tPvEovHVmhWS0TZIz3BF0JrGwRm4qFqj7s')

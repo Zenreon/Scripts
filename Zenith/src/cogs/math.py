@@ -1,5 +1,6 @@
 import random
 from discord.ext import commands
+import math
 
 class math(commands.Cog):
     def __init__(self, bot):
@@ -15,6 +16,8 @@ def sqrt(n: float):
 	        return math.sqrt(n)
 def mult(n: float, n2: float):
 	        return n * n2
+def rando(n: float, n2: float):
+            return math.random(n, n2)
 # math commands
 @commands.slash_command(description="""Adds two numbers. Usage: mathadd <num1> <num2>""")
 async def mathadd(ctx, x:float, y:float):	
